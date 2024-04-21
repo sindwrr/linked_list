@@ -37,12 +37,12 @@ public:
 
 // конструктор по умолчанию
 template <typename T>
-LinkedList<T>::LinkedList() : next(nullptr), init(false), size(0) {}
+LinkedList<T>::LinkedList(): value(T()), next(nullptr), init(false), size(0) {}
 
 // создает одноэлементный список с заданным значением
 template <typename T>
-LinkedList<T>::LinkedList(const T& val) : value(val), next(nullptr),
-                                   init(true), size(1) {}
+LinkedList<T>::LinkedList(const T& val): value(val), next(nullptr),
+                                         init(true), size(1) {}
 
 // создает список с count элементами, в каждом содержится val
 template <typename T>
@@ -54,7 +54,7 @@ LinkedList<T>::LinkedList(const int& count, const T& val)
     this->value = val;
     this->next = nullptr;
     this->init = true;
-    this->size = 1;
+    this->size = count;
 
     if (count == 1)
         return;
@@ -229,6 +229,9 @@ void LinkedList<T>::delete_at(const int& index)
 template<typename T>
 int LinkedList<T>::find(const T& val) const
 {
+    if (this->size == 0)
+        return -1;
+        
     const LinkedList<T>* curr = this;
     int index = 0;
     while (curr->value != val)
